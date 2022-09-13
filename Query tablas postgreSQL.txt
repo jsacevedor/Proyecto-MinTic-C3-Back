@@ -1,0 +1,78 @@
+CREATE TABLE Usuario(
+	idUsuario INT PRIMARY KEY NOT NULL,
+    Nombres CHAR(50) NOT NULL,
+    Apellidos CHAR(50) NOT NULL,
+    Clave CHAR(20) NOT NULL,
+    Telefono INT NOT NULL,
+    Genero CHAR(1)
+);
+
+CREATE TABLE Auxiliar(
+	idUsuario INT NOT NULL,
+	FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario)
+);
+
+CREATE TABLE Personal_Salud(
+	idUsuario INT NOT NULL PRIMARY KEY,
+	FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario)
+);
+
+CREATE TABLE Medico(
+	idUsuario INT NOT NULL PRIMARY KEY,
+	Especialidad CHAR(50) NOT NULL,
+	Registro char(50) NOT NULL,
+	FOREIGN KEY(idUsuario) REFERENCES personal_salud(idUsuario)
+);
+
+CREATE TABLE Enfermero(
+	idUsuario INT NOT NULL PRIMARY KEY,
+	FOREIGN KEY(idUsuario) REFERENCES personal_salud(idUsuario)
+);
+
+CREATE TABLE Paciente(
+	idUsuario INT NOT NULL PRIMARY KEY,
+    idMedico INT NOT NULL,
+    Direccion CHAR(100) NOT NULL,
+    Ciudad CHAR(50) NOT NULL,
+    FechaNacimiento TIMESTAMP NOT NULL,
+    Latitud FLOAT,
+    Longitud FLOAT,
+    FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario),
+    FOREIGN KEY(idMedico) REFERENCES Medico(idUsuario)
+);
+
+CREATE TABLE Familiar(
+	idUsuario INT NOT NULL PRIMARY KEY,
+	idPaciente INT NOT NULL,
+	Parentesco CHAR(30) NOT NULL,
+	Email CHAR(50) NOT NULL,
+	FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario),
+	FOREIGN KEY(idPaciente) REFERENCES Paciente(idUsuario)
+);
+
+CREATE TABLE Signos_Vitales(
+	idregistro SERIAL PRIMARY KEY NOT NULL,
+	idPaciente INT NOT NULL,
+	Signo_Vital CHAR(1) NOT NULL,
+	Valor_Signo FLOAT NOT NULL,
+	Fecha_Registro TIMESTAMP NOT NULL,
+	FOREIGN KEY(idPaciente) REFERENCES Paciente(idUsuario)
+);
+
+CREATE TABLE Historia_Clinica(
+	id_Registro_Historia SERIAL PRIMARY KEY NOT NULL,
+	idPaciente INT NOT NULL,
+	idMedico INT NOT NULL,
+	Fecha_Registro_HC TIMESTAMP NOT NULL,
+	Detalles CHAR(5000) NOT NULL,
+	FOREIGN KEY(idPaciente) REFERENCES Paciente(idUsuario),
+	FOREIGN KEY(idMedico) REFERENCES Medico(idUsuario)
+);
+
+CREATE TABLE Sugerencias(
+	id_Sugerencia SERIAL PRIMARY KEY NOT NULL,
+	id_Registro_Historia INT NOT NULL,
+	Fecha_Sugerencia TIMESTAMP,
+	Sugerencia CHAR(5000),
+	FOREIGN KEY(id_Registro_Historia) REFERENCES Historia_Clinica(id_Registro_Historia)
+);

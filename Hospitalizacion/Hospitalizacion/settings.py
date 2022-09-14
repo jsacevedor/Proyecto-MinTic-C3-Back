@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'Hospitalizacion.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'hospitalizacion.db',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'daai3s41f6rv9h',
+        'HOST':'ec2-54-163-34-107.compute-1.amazonaws.com',
+        'USER':'zftydughfqkfnh',
+        'PASSWORD':'764302534e67d2fee8c85ff04a3854029faebbad18f2d78b2081e1c6afa0e441',
+        'PORT' : 5432,
     }
 }
 

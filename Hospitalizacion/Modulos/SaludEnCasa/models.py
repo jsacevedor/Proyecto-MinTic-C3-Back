@@ -80,7 +80,7 @@ class Familiar(models.Model):
         return txt.format(self.idUsuario,self.idUsuario.nombrecompleto(),self.idPaciente)
 
 class Signos_Vitales(models.Model):
-    idRegistro = models.PositiveIntegerField(primary_key=True,null=False,blank=False)
+    idRegistro = models.AutoField(primary_key=True,null=False,blank=False)
     idPaciente = models.ForeignKey(Paciente,null=False, blank=False, on_delete=models.CASCADE)
     signos = [
         ('O','Oximetría'),
@@ -101,7 +101,7 @@ class Signos_Vitales(models.Model):
 
 
 class Historia_Clinica(models.Model):
-    id_Registro_Historia = models.PositiveIntegerField(primary_key=True,null=False,blank=False)
+    id_Registro_Historia = models.AutoField(primary_key=True,null=False,blank=False)
     idPaciente = models.ForeignKey(Paciente,null=False, blank=False, on_delete=models.CASCADE)
     idMedico = models.ForeignKey(Medico,null=False, blank=False,on_delete=models.CASCADE)
     Fecha_Registro_HC = models.DateField(auto_now=True)
